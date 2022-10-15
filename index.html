@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html data-appversion="4.7.5.0" data-culture="pt-BR" lang="pt" class="preload">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="preload" href="web/modules/fonts/material-icons/LDItaoyNOAY6Uewc665JcIzCKsKc_M9flwmP_3.woff" as="font" type="font/woff2" crossorigin>
+    <link rel="manifest" href="web/manifest.json">
+    <meta name="description" content="Emby Server">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta http-equiv="X-UA-Compatibility" content="IE=Edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Homecine">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta property="og:title" content="Homecine">
+    <meta property="og:site_name" content="Homecine">
+    <meta property="og:url" content="https://is.gd/homecine">
+    <meta property="og:description" content="Cine & Tv Streaming">
+    <meta property="og:type" content="article">
+    <meta property="fb:app_id" content="1618309211750238">
+    <meta name="apple-itunes-app" content="app-id=992180193">
+    <link rel="apple-touch-icon" href="web/images/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="web/images/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="web/images/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="web/images/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="web/images/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="384x384" href="web/images/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="web/images/icon-512x512.png">
+    <link rel="apple-touch-startup-image" href="web/images/splash.png">
+    <link rel="shortcut icon" href="web/favicon.ico">
+    <meta name="msapplication-TileImage" content="images/touchicon144.png">
+    <meta name="msapplication-TileColor" content="#333333">
+    <meta name="theme-color" content="#43A047">
+    <title>Homecine</title>
+    <style>
+        .preload {
+            background-color: #000;
+        }
+        .app-splash {
+            background-image: url(web/modules/themes/logowhite.png);
+            background-position: center top;
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: fixed;
+            top: 20%;
+            left: 30%;
+            right: 30%;
+            height: 60%;
+            contain: strict;
+            content-visibility: auto;
+        }
+        .hide {
+            display: none !important;
+        }
+        @media (orientation: landscape) {
+            .app-splash {
+                left: 25.5%;
+                right: 25.5%;
+            }
+        }
+    </style>
+</head>
+<body class="mainAnimatedPages skinBody">
+    <div class="backdropContainer"></div>
+    <div class="backgroundContainer"></div>
+    <div class="mainDrawer hide focuscontainer-y" is="emby-scroller" data-horizontal="false" data-centerfocus="true" data-navcommands="card" data-bindheader="false" data-skipfocuswhenvisible="true">
+        <div class="scrollSlider mainDrawerScrollSlider"></div>
+    </div>
+    <div class="skinHeader focuscontainer-x headroom flex align-items-center flex-grow headerTop">
+        <div class="headerLeft">
+        </div>
+        <div class="headerMiddle sectionTabs">
+        </div>
+        <div class="headerRight focuscontainer-right">
+        </div>
+    </div>
+    <div class="app-splash"></div>
+    <script src="web/apploader.js" defer></script>
+<script src="ajax/libs/arrive/2.4.1/arrive.min.js"></script>
+    <script>
+        (async function () {
+            var backgroundList = ["web/custom_images/fanart1.jpg", "web/custom_images/fanart2.jpg", "web/custom_images/fanart3.jpg", "web/custom_images/fanart4.jpg", "web/custom_images/fanart5.jpg", "web/custom_images/fanart6.jpg", "web/custom_images/fanart7.jpg", "web/custom_images/fanart8.jpg", "web/custom_images/fanart9.jpg", "web/custom_images/fanart10.jpg", "web/custom_images/fanart11.jpg"];
+            var backgroundChangeIntervalSeconds = 5;
+            // promisify image loading
+            var loadImage = function loadImage(source) {
+                return new Promise(function (resolve) {
+                var image = new Image();
+                image.src = source;
+                image.onload = function () {
+                    return resolve();
+                };
+                });
+            };
+            var setBackground = function setBackground() {
+                // create an array from the nodeList of loginPages
+                var loginPages = Array.from(document.querySelectorAll("#manualloginPage")); // only proceed if there are login pages that are visible               
+                if (loginPages.filter(function (page) {
+                return page.classList.contains("hide");
+                }).length < loginPages.length) {
+                // go through each login page and apply the styling
+                loginPages.forEach(function (page) {
+                    return page.style = "\n                            background: url(".concat(backgroundList[Math.floor(Math.random() * backgroundList.length)], ") no-repeat center center fixed; \n                            -webkit-background-size: cover; \n                            -moz-background-size: cover; \n                            -o-background-size: cover; \n                            transition: background-image 0.5s ease-in-out; \n                            -webkit-transition: background-image 0.5s ease-in-out;\n                        ");
+                });
+                }
+            };
+            document.arrive("#manualloginPage", setBackground); // preload all images
+            for (var _i = 0, _backgroundList = backgroundList; _i < _backgroundList.length; _i++) {
+                var backgroundImg = _backgroundList[_i];
+                await loadImage(backgroundImg);
+            } // update via interval we set 
+            setInterval(setBackground, backgroundChangeIntervalSeconds * 1000);
+            })();
+    </script>	
+
+</html>
